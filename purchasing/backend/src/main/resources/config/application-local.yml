@@ -1,0 +1,58 @@
+#配置資料來源
+spring:
+  datasource:
+    druid:
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/eladmin?serverTimezone=Asia/Taipei&characterEncoding=utf8&useSSL=false
+      username: jayyang
+      password: 123456
+      
+      # 初始化連接大小
+      initial-size: 5
+      # 最小空閒連接數
+      min-idle: 5
+      max-active: 20
+      max-wait: 30000
+      # 可關閉的空閒連接間隔時間
+      time-between-eviction-runs-millis: 60000
+      # 配置連接在池中的最小生存時間
+      min-evictable-idle-time-millis: 300000
+      validation-query: select '1' from dual
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      # 打開PSCache，並且指定每個連接上PSCache的大小
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+      max-pool-prepared-statement-per-connection-size: 20
+      # 配置監控統計攔截的filters
+      filters: stat
+
+      stat-view-servlet:
+        url-pattern: /druid/*
+        reset-enable: false
+        login-username: admin
+        login-password: 123456
+
+      web-stat-filter:
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+
+  #配置 Jpa
+  jpa:
+    hibernate:
+      # 生產環境設置成 none，避免程式運行時自動更新資料庫結構
+      ddl-auto: none
+
+#jwt
+jwt:
+  header: Authorization
+  secret: mySecret
+  # token 過期時間 4個小時
+  expiration: 14400000
+  auth:
+    # 授權路徑
+    path: /login
+    # 獲取使用者資訊
+    account: /info
+IMG_ROOT_PATH: img

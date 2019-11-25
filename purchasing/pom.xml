@@ -1,0 +1,39 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.micb2b.purchasing</groupId>
+	<artifactId>purchasing_parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>purchasing_parent</name>
+	<packaging>pom</packaging>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.4.RELEASE</version>
+	</parent>
+
+	<modules>
+		<module>backend-common</module>
+		<module>backend</module>
+	</modules>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<ph.root>/purchasing</ph.root>
+		<ph.backend>${ph.root}/backend</ph.backend>
+
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<log4jdbc.version>1.16</log4jdbc.version>
+		<swagger.version>2.9.2</swagger.version>
+		<fastjson.version>1.2.54</fastjson.version>
+		<druid.version>1.1.10</druid.version>
+		<hutool.version>4.5.6</hutool.version>
+		<jjwt.version>0.9.1</jjwt.version>
+		<json.version>20090211</json.version>
+		<mapstruct.version>1.1.0.Final</mapstruct.version>
+	</properties>
+
+</project>

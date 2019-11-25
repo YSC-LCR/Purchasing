@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <contextName>elAdmin</contextName>
+    <property name="FILE_LOG_PATTERN" value="${FILE_LOG_PATTERN:-%date{yyyy-MM-dd HH:mm:ss.SSS}[%-5level]---[%t] %logger{40}[%line]:%msg%n}"/>
+	<property name="LOG_ENCODING" value="UTF-8"/>
+	<property name="LOG_FILE" value="/purchasing/logs/admin/admin-portal.log"/>
+    <!--輸出到檔案-->
+	<appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_FILE}</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_FILE}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<!-- 按照日期及檔案大小(100MB)儲存, 最多存60天, 所有log大小不能超過20GB -->
+			<maxFileSize>100MB</maxFileSize>    
+			<maxHistory>60</maxHistory>
+			<totalSizeCap>10GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder>
+      		<!-- <pattern>${FILE_LOG_PATTERN}</pattern> -->
+      		<pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} - [%5p] - %msg - [%C:%L] %n</pattern>
+      		<charset>${LOG_ENCODING}</charset>
+    	</encoder>
+    	<append>true</append>  
+	</appender>
+	<root level="DEBUG">
+    	<appender-ref ref="ROLLING" />
+    </root>
+    
+    <!--輸出到控制台-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- <pattern>%red(%date{yyyy-MM-dd HH:mm:ss.SSS}) %highlight([%-5level])-%boldMagenta(%logger{40}[%line]):%msg%n</pattern> -->
+            <pattern>%red(%date{yyyy-MM-dd HH:mm:ss.SSS}) %highlight([%5p]) %msg - [%boldMagenta(%C:%L)] %n</pattern>
+            <charset>${LOG_ENCODING}</charset>
+        </encoder>
+        <!--添加我們自訂的filter
+        <filter class="me.zhengjie.modules.monitor.config.LogFilter"></filter>-->
+    </appender>
+
+    <!--普通日誌輸出到控制台-->
+    <root level="info">
+        <appender-ref ref="console" />
+    </root>
+
+    <!--監控sql日誌輸出 -->
+    <!-- name值可以是包名或具體的類名：該包（包括子包）下的類或該類將採用此logger -->  
+    <logger name="jdbc.sqlonly" level="INFO" additivity="false">
+        <appender-ref ref="console" />
+    </logger>
+
+    <logger name="jdbc.resultset" level="ERROR" additivity="false">
+        <appender-ref ref="console" />
+    </logger>
+
+    <logger name="jdbc.resultsettable" level="INFO" additivity="false">
+        <appender-ref ref="console" />
+    </logger>
+
+    <logger name="jdbc.connection" level="OFF" additivity="false">
+        <appender-ref ref="console" />
+    </logger>
+
+    <logger name="jdbc.sqltiming" level="OFF" additivity="false">
+        <appender-ref ref="console" />
+    </logger>
+
+    <logger name="jdbc.audit" level="OFF" additivity="false">
+        <appender-ref ref="console" />
+    </logger>
+
+</configuration>

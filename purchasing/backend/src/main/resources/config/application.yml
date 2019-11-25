@@ -1,0 +1,22 @@
+server:
+  port: 8090
+
+spring:
+  servlet: 
+    multipart: 
+      max-file-size: 10MB
+      max-request-size: 100MB
+  profiles:
+    active: local
+  jackson:
+    time-zone: GMT+8
+  data:
+    redis:
+      repositories:
+        enabled: false
+  #配置 Jpa
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: true
