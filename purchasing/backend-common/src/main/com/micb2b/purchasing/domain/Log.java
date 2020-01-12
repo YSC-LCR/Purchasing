@@ -33,9 +33,6 @@ public class Log {
      */
     private String username;
 
-    /**
-     * ��膩
-     */
     private String description;
 
     /**
