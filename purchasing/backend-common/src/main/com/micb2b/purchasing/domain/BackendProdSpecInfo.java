@@ -43,4 +43,7 @@ public class BackendProdSpecInfo {
 	@Column(name = "update_date")
 	private Timestamp updateDate;
 	
+	@Column(name = "prod_id")
+	private Long prodId;
+	
 }

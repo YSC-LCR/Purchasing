@@ -31,10 +31,10 @@ public class BackendProd {
 	@Column(name = "prod_id")
 	private Long prodId;
 	
-	@Column(name = "name")
+	@Column(name = "prod_name")
 	private String name;
 	
-	@Column(name = "desc")
+	@Column(name = "prod_desc")
 	private String desc;
 	
 	@Column(name = "weight")
@@ -58,6 +58,9 @@ public class BackendProd {
 	@Column(name = "update_date")
 	private Timestamp updateDate;
 	
+	@Column(name = "sub_category_id")
+	private Long subCategoryId;
+	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	@JoinColumn(name="price_info_id")
 	private Set<BackendProdPriceInfo> backendProdPriceInfo;
@@ -66,4 +69,6 @@ public class BackendProd {
 	@JoinColumn(name="spec_info_id")
 	private Set<BackendProdSpecInfo> backendProdSpecInfo;
 
+	@Column(name = "delete_flag")
+	private String deleteFlag;
 }

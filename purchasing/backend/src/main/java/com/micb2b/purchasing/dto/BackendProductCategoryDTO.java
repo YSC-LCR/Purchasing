@@ -8,7 +8,7 @@ import lombok.Data;
  * @author JayYang
  */
 @Data
-public class BackendProductDTO implements Serializable {
+public class BackendProductCategoryDTO implements Serializable {
 	
 	private Long categoryId;
 	
