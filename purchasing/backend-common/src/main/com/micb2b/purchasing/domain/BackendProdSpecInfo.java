@@ -25,9 +25,6 @@ public class BackendProdSpecInfo {
 	@Column(name = "spec_info_id")
 	private Long specInfoId;
 	
-	@Column(name = "name")
-	private String name;
-	
 	@Column(name = "unit")
 	private String unit;
 	
@@ -42,5 +39,11 @@ public class BackendProdSpecInfo {
 
 	@Column(name = "update_date")
 	private Timestamp updateDate;
+	
+	@Column(name = "prod_id")
+	private Long prodId;
+	
+	@Column(name = "unit_info_id")
+	private Long unitInfoId;
 	
 }

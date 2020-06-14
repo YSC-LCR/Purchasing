@@ -50,6 +50,6 @@ public class BackendProdCategory {
 	private String deleteFlag;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-	@JoinColumn(name="sub_category_id")
+	@JoinColumn(name="category_id")
 	private Set<BackendProdSubCategory> backendProdSubCategory;
 }

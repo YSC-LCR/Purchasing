@@ -31,13 +31,13 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class BackendProdQueryService {
+public class BackendProdCategoryQueryService {
 
 	@Autowired
 	private BackendProdCategoryRepository backendProdRepository;
 
 	@Autowired
-	private BackendProdCategoryMapper productCodeMapper;
+	private BackendProdCategoryMapper backendProdCategoryMapper;
 
 	/**
 	 * 分頁
@@ -46,7 +46,7 @@ public class BackendProdQueryService {
 	public Object queryAll(String columnValue,Pageable pageable) {
 //		Page<BackendProdCodeView> page = backendProdViewRepository.findAll(new Spec(column,columnValue,deptIds),pageable);
 		Page<BackendProdCategory> page = backendProdRepository.findAll(new Spec(columnValue),pageable);
-		return PageUtil.toPage(page.map(productCodeMapper::toDto));
+		return PageUtil.toPage(page.map(backendProdCategoryMapper::toDto));
 	}
 
 	class Spec implements Specification<BackendProdCategory> {

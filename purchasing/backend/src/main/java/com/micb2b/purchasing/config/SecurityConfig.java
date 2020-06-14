@@ -44,8 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${jwt.auth.path}")///login
     private String loginPath;
     
-    @Value("${IMG_ROOT_PATH}")
-	private String IMG_ROOT_PATH;
+//    @Value("${IMG_ROOT_PATH}")
+//	private String IMG_ROOT_PATH;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -88,7 +88,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.js"
                 ).permitAll()
                 .antMatchers( HttpMethod.POST,"/auth/"+loginPath).permitAll()
-                .antMatchers( HttpMethod.GET,"/"+IMG_ROOT_PATH+"/**").permitAll()
+//                .antMatchers( HttpMethod.GET,"/"+IMG_ROOT_PATH+"/**").permitAll()
                 // swagger start
                 .antMatchers("/swagger-ui.html").anonymous()
                 .antMatchers("/swagger-resources/**").anonymous()

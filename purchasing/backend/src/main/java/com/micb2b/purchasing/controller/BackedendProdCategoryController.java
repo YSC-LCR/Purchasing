@@ -24,7 +24,7 @@ import com.micb2b.purchasing.repository.BackendProdCategoryRepository;
 import com.micb2b.purchasing.repository.BackendProdSubCategoryRepository;
 import com.micb2b.purchasing.service.BackendProdCategoryService;
 import com.micb2b.purchasing.service.BackendProdSubCategoryService;
-import com.micb2b.purchasing.service.query.BackendProdQueryService;
+import com.micb2b.purchasing.service.query.BackendProdCategoryQueryService;
 import com.micb2b.purchasing.utils.SecurityContextHolder;
 
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BackedendProdCategoryController {
 
 	@Autowired
-	private BackendProdQueryService prodQueryService;
+	private BackendProdCategoryQueryService prodCategoryQueryService;
 
 	@Autowired
 	private BackendProdSubCategoryService prodSubCategoryService;
@@ -61,7 +61,7 @@ public class BackedendProdCategoryController {
 	@GetMapping(value = "/prod/prodCategory/queryAll")
 	public ResponseEntity queryAll(@RequestParam(required = false) String columnValue, Pageable pageable) {
 
-		ResponseEntity responseEntity = new ResponseEntity(prodQueryService.queryAll(columnValue, pageable),
+		ResponseEntity responseEntity = new ResponseEntity(prodCategoryQueryService.queryAll(columnValue, pageable),
 				HttpStatus.OK);
 		return responseEntity;
 	}
