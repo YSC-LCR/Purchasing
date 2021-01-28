@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-05-07T14:25:06+0800",
-    comments = "version: 1.1.0.Final, compiler: Eclipse JDT (IDE) 3.17.0.v20190306-2240, environment: Java 1.8.0_144 (Oracle Corporation)"
+    date = "2021-01-11T15:58:43+0800",
+    comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_251 (Oracle Corporation)"
 )
 @Component
 public class PermissionMapperImpl implements PermissionMapper {
@@ -23,11 +23,11 @@ public class PermissionMapperImpl implements PermissionMapper {
 
         Permission permission = new Permission();
 
-        permission.setAlias( dto.getAlias() );
-        permission.setCreateTime( dto.getCreateTime() );
         permission.setId( dto.getId() );
         permission.setName( dto.getName() );
         permission.setPid( dto.getPid() );
+        permission.setAlias( dto.getAlias() );
+        permission.setCreateTime( dto.getCreateTime() );
 
         return permission;
     }
@@ -40,11 +40,11 @@ public class PermissionMapperImpl implements PermissionMapper {
 
         PermissionDTO permissionDTO = new PermissionDTO();
 
-        permissionDTO.setAlias( entity.getAlias() );
-        permissionDTO.setCreateTime( entity.getCreateTime() );
         permissionDTO.setId( entity.getId() );
         permissionDTO.setName( entity.getName() );
         permissionDTO.setPid( entity.getPid() );
+        permissionDTO.setAlias( entity.getAlias() );
+        permissionDTO.setCreateTime( entity.getCreateTime() );
 
         return permissionDTO;
     }
@@ -55,7 +55,7 @@ public class PermissionMapperImpl implements PermissionMapper {
             return null;
         }
 
-        List<Permission> list = new ArrayList<Permission>();
+        List<Permission> list = new ArrayList<Permission>( dtoList.size() );
         for ( PermissionDTO permissionDTO : dtoList ) {
             list.add( toEntity( permissionDTO ) );
         }
@@ -69,7 +69,7 @@ public class PermissionMapperImpl implements PermissionMapper {
             return null;
         }
 
-        List<PermissionDTO> list = new ArrayList<PermissionDTO>();
+        List<PermissionDTO> list = new ArrayList<PermissionDTO>( entityList.size() );
         for ( Permission permission : entityList ) {
             list.add( toDto( permission ) );
         }

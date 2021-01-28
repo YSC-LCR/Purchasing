@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-05-07T14:25:06+0800",
-    comments = "version: 1.1.0.Final, compiler: Eclipse JDT (IDE) 3.17.0.v20190306-2240, environment: Java 1.8.0_144 (Oracle Corporation)"
+    date = "2021-01-11T15:58:43+0800",
+    comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_251 (Oracle Corporation)"
 )
 @Component
 public class SysParamMapperImpl implements SysParamMapper {
@@ -23,17 +23,17 @@ public class SysParamMapperImpl implements SysParamMapper {
 
         SysParam sysParam = new SysParam();
 
-        sysParam.setCreateBy( dto.getCreateBy() );
-        sysParam.setCreateDate( dto.getCreateDate() );
-        sysParam.setParamDesc( dto.getParamDesc() );
         sysParam.setParamId( dto.getParamId() );
         sysParam.setParamName( dto.getParamName() );
+        sysParam.setParamDesc( dto.getParamDesc() );
         sysParam.setParamType( dto.getParamType() );
         sysParam.setParamValue( dto.getParamValue() );
+        sysParam.setValueType( dto.getValueType() );
+        sysParam.setValueSize( dto.getValueSize() );
+        sysParam.setCreateBy( dto.getCreateBy() );
+        sysParam.setCreateDate( dto.getCreateDate() );
         sysParam.setUpdateBy( dto.getUpdateBy() );
         sysParam.setUpdateDate( dto.getUpdateDate() );
-        sysParam.setValueSize( dto.getValueSize() );
-        sysParam.setValueType( dto.getValueType() );
 
         return sysParam;
     }
@@ -46,17 +46,17 @@ public class SysParamMapperImpl implements SysParamMapper {
 
         SysParamDTO sysParamDTO = new SysParamDTO();
 
-        sysParamDTO.setCreateBy( entity.getCreateBy() );
-        sysParamDTO.setCreateDate( entity.getCreateDate() );
-        sysParamDTO.setParamDesc( entity.getParamDesc() );
         sysParamDTO.setParamId( entity.getParamId() );
         sysParamDTO.setParamName( entity.getParamName() );
+        sysParamDTO.setParamDesc( entity.getParamDesc() );
         sysParamDTO.setParamType( entity.getParamType() );
         sysParamDTO.setParamValue( entity.getParamValue() );
+        sysParamDTO.setValueType( entity.getValueType() );
+        sysParamDTO.setValueSize( entity.getValueSize() );
+        sysParamDTO.setCreateBy( entity.getCreateBy() );
+        sysParamDTO.setCreateDate( entity.getCreateDate() );
         sysParamDTO.setUpdateBy( entity.getUpdateBy() );
         sysParamDTO.setUpdateDate( entity.getUpdateDate() );
-        sysParamDTO.setValueSize( entity.getValueSize() );
-        sysParamDTO.setValueType( entity.getValueType() );
 
         return sysParamDTO;
     }
@@ -67,7 +67,7 @@ public class SysParamMapperImpl implements SysParamMapper {
             return null;
         }
 
-        List<SysParam> list = new ArrayList<SysParam>();
+        List<SysParam> list = new ArrayList<SysParam>( dtoList.size() );
         for ( SysParamDTO sysParamDTO : dtoList ) {
             list.add( toEntity( sysParamDTO ) );
         }
@@ -81,7 +81,7 @@ public class SysParamMapperImpl implements SysParamMapper {
             return null;
         }
 
-        List<SysParamDTO> list = new ArrayList<SysParamDTO>();
+        List<SysParamDTO> list = new ArrayList<SysParamDTO>( entityList.size() );
         for ( SysParam sysParam : entityList ) {
             list.add( toDto( sysParam ) );
         }

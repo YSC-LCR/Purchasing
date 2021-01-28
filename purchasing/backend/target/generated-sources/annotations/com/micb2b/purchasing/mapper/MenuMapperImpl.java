@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-05-07T14:25:06+0800",
-    comments = "version: 1.1.0.Final, compiler: Eclipse JDT (IDE) 3.17.0.v20190306-2240, environment: Java 1.8.0_144 (Oracle Corporation)"
+    date = "2021-01-11T15:58:43+0800",
+    comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_251 (Oracle Corporation)"
 )
 @Component
 public class MenuMapperImpl implements MenuMapper {
@@ -23,15 +23,15 @@ public class MenuMapperImpl implements MenuMapper {
 
         Menu menu = new Menu();
 
-        menu.setComponent( dto.getComponent() );
-        menu.setCreateTime( dto.getCreateTime() );
-        menu.setIFrame( dto.getIFrame() );
-        menu.setIcon( dto.getIcon() );
         menu.setId( dto.getId() );
         menu.setName( dto.getName() );
-        menu.setPath( dto.getPath() );
-        menu.setPid( dto.getPid() );
         menu.setSort( dto.getSort() );
+        menu.setPath( dto.getPath() );
+        menu.setComponent( dto.getComponent() );
+        menu.setIcon( dto.getIcon() );
+        menu.setPid( dto.getPid() );
+        menu.setIFrame( dto.getIFrame() );
+        menu.setCreateTime( dto.getCreateTime() );
 
         return menu;
     }
@@ -44,15 +44,15 @@ public class MenuMapperImpl implements MenuMapper {
 
         MenuDTO menuDTO = new MenuDTO();
 
-        menuDTO.setComponent( entity.getComponent() );
-        menuDTO.setCreateTime( entity.getCreateTime() );
-        menuDTO.setIFrame( entity.getIFrame() );
-        menuDTO.setIcon( entity.getIcon() );
         menuDTO.setId( entity.getId() );
         menuDTO.setName( entity.getName() );
-        menuDTO.setPath( entity.getPath() );
-        menuDTO.setPid( entity.getPid() );
         menuDTO.setSort( entity.getSort() );
+        menuDTO.setPath( entity.getPath() );
+        menuDTO.setComponent( entity.getComponent() );
+        menuDTO.setPid( entity.getPid() );
+        menuDTO.setIFrame( entity.getIFrame() );
+        menuDTO.setIcon( entity.getIcon() );
+        menuDTO.setCreateTime( entity.getCreateTime() );
 
         return menuDTO;
     }
@@ -63,7 +63,7 @@ public class MenuMapperImpl implements MenuMapper {
             return null;
         }
 
-        List<Menu> list = new ArrayList<Menu>();
+        List<Menu> list = new ArrayList<Menu>( dtoList.size() );
         for ( MenuDTO menuDTO : dtoList ) {
             list.add( toEntity( menuDTO ) );
         }
@@ -77,7 +77,7 @@ public class MenuMapperImpl implements MenuMapper {
             return null;
         }
 
-        List<MenuDTO> list = new ArrayList<MenuDTO>();
+        List<MenuDTO> list = new ArrayList<MenuDTO>( entityList.size() );
         for ( Menu menu : entityList ) {
             list.add( toDto( menu ) );
         }

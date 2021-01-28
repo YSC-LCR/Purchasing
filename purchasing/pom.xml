@@ -16,6 +16,8 @@
 	<modules>
 		<module>backend-common</module>
 		<module>backend</module>
+		<module>shoppe</module>
+		<module>shoppe</module>
 	</modules>
 
 	<properties>

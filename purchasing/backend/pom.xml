@@ -6,15 +6,25 @@
 	<packaging>jar</packaging>
 	<version>1.0</version>
 
-
-	<name>backend</name>
-	<url>http://maven.apache.org</url>
-
 	<parent>
-		<groupId>com.micb2b.purchasing</groupId>
 		<artifactId>purchasing_parent</artifactId>
+		<groupId>com.micb2b.purchasing</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<log4jdbc.version>1.16</log4jdbc.version>
+		<swagger.version>2.9.2</swagger.version>
+		<fastjson.version>1.2.54</fastjson.version>
+		<druid.version>1.1.10</druid.version>
+		<hutool.version>4.5.6</hutool.version>
+		<jjwt.version>0.9.1</jjwt.version>
+		<json.version>20090211</json.version>
+		<mapstruct.version>1.2.0.Final</mapstruct.version>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -22,6 +32,7 @@
 			<artifactId>backend-common</artifactId>
 			<version>1.0</version>
 		</dependency>
+
 		<!--Spring boot start -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -150,7 +161,24 @@
     		<artifactId>commons-io</artifactId>
     		<version>2.6</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.17</version>
+		</dependency>
+		<dependency>
+			<groupId>com.micb2b.purchasing</groupId>
+			<artifactId>shoppe</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -167,6 +195,46 @@
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-resource-one</id>
+						<phase>install</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${ph.root}</outputDirectory>
+							<resources>
+								<resource>
+									<targetPath>${ph.backend}/config</targetPath>
+									<directory>src/main/resources/config</directory>
+									<includes>
+										<include>application-uat.yml</include>
+										<include>application-prod.yml</include>
+										<include>application.yml</include>
+									</includes>
+								</resource>
+								<resource>
+									<targetPath>${ph.backend}</targetPath>
+									<directory>src/main/resources</directory>
+									<includes>
+										<include>logback.xml</include>
+									</includes>
+								</resource>
+								<resource>
+									<directory>script</directory>
+									<includes>
+										<include>*.sh</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

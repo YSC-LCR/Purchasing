@@ -1,35 +1,25 @@
 package com.micb2b.purchasing.controller;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.micb2b.purchasing.domain.BackendProd;
 import com.micb2b.purchasing.domain.BackendProdImages;
 import com.micb2b.purchasing.domain.ResponseCode;
 import com.micb2b.purchasing.domain.ResponseModel;
 import com.micb2b.purchasing.service.BackendProdService;
-import com.micb2b.purchasing.service.query.BackendProdQueryService;
 import com.micb2b.purchasing.utils.ImageUtil;
 import com.micb2b.purchasing.utils.SecurityContextHolder;
-
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author jayyang
@@ -40,8 +30,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("homePage")
 public class BackedendProdController {
 
-	@Autowired
-	private BackendProdQueryService prodQueryService;
+//	@Autowired
+//	private BackendProdQueryService prodQueryService;
 	
 	@Autowired
 	BackendProdService backendProdService;
@@ -50,12 +40,12 @@ public class BackedendProdController {
 	 * 
 	 * @return
 	 */
-	@GetMapping(value = "/prod/prodMain/queryAll")
-	public ResponseEntity queryAll(@RequestParam(required = false) String columnValue, Pageable pageable) {
-		ResponseEntity responseEntity = new ResponseEntity(prodQueryService.queryAll(columnValue, pageable),
-				HttpStatus.OK);
-		return responseEntity;
-	}
+//	@GetMapping(value = "/prod/prodMain/queryAll")
+//	public ResponseEntity queryAll(@RequestParam(required = false) String columnValue, Pageable pageable) {
+//		ResponseEntity responseEntity = new ResponseEntity(prodQueryService.queryAll(columnValue, pageable),
+//				HttpStatus.OK);
+//		return responseEntity;
+//	}
 	
 	/**
 	 * 返回商品表單需要初始資料

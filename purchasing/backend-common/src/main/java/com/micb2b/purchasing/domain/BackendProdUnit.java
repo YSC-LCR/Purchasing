@@ -18,27 +18,21 @@ import lombok.Data;
 
 /**
  * @author jay
- * @date 2020-03-31
+ * @date 2020-1-11
  */
 
 @Entity
 @Data
-@Table(name = "backend_prod_images")
-public class BackendProdImages {
+@Table(name = "backend_prod_unit")
+public class BackendProdUnit {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "seq")
-	private Long seq;
+	@Column(name = "unit_id")
+	private Long unitId;
 	
-	@Column(name = "file_name")
-	private String fileName;
-	
-	@Column(name = "order")
-	private Long order;
-	
-	@Column(name = "is_main")
-	private Long isMain;
+	@Column(name = "name")
+	private String unitName;
 	
 	@Column(name = "create_by")
 	private String createBy;
@@ -52,6 +46,10 @@ public class BackendProdImages {
 	@Column(name = "update_date")
 	private Timestamp updateDate;
 	
-	@Column(name = "prod_id")
-	private Long prodId;
+	@Column(name = "delete_flag")
+	private String deleteFlag;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@JoinColumn(name="unit_id")
+	private Set<BackendProdUnitInfo> backendProdUnitInfo;
 }

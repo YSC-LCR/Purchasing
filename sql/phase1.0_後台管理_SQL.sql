@@ -5,6 +5,72 @@ SET FOREIGN_KEY_CHECKS = 0;
 
 create database eladmin;
 use eladmin;
+
+-- ----------------------------
+-- Table structure for country_info
+-- ----------------------------
+CREATE TABLE `country_info` (
+  `seq` bigint NOT NULL AUTO_INCREMENT COMMENT '流水號',
+  `code` varchar(45) DEFAULT NULL COMMENT '代號',
+  `name` varchar(45) DEFAULT NULL COMMENT '名稱',
+  `create_date` datetime DEFAULT NULL COMMENT '建立時間',
+  `create_by` varchar(45) DEFAULT NULL COMMENT '建立者',
+  `update_date` datetime DEFAULT NULL COMMENT '修改時間',
+  `update_by` varchar(45) DEFAULT NULL COMMENT '修改者',
+  PRIMARY KEY (`seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='國家資訊';
+
+
+-- ----------------------------
+-- Table structure for exchange_rate
+-- ----------------------------
+CREATE TABLE `exchange_rate` (
+  `seq` bigint NOT NULL AUTO_INCREMENT COMMENT '流水號',
+  `country_id` int DEFAULT NULL,
+  `rate` decimal(10,3) DEFAULT NULL COMMENT '匯率',
+  `create_date` varchar(45) DEFAULT NULL COMMENT '建立時間',
+  `create_by` varchar(45) DEFAULT NULL COMMENT '建立者',
+  `is_use` int DEFAULT NULL COMMENT '是否使用 (0:使用/1:不使用)',
+  PRIMARY KEY (`seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='匯率';
+
+
+-- ----------------------------
+-- Table structure for shipping_info
+-- ----------------------------
+CREATE TABLE `shipping_info` (
+  `seq` bigint NOT NULL AUTO_INCREMENT COMMENT '流水號',
+  `country_id` int DEFAULT NULL,
+  `cost` int DEFAULT NULL COMMENT '費用',
+  `type` int DEFAULT NULL COMMENT '運送方式(0:海運/1:空運)',
+  `create_date` datetime DEFAULT NULL COMMENT '建立時間',
+  `create_by` varchar(45) DEFAULT NULL COMMENT '建立者',
+  `update_date` datetime DEFAULT NULL COMMENT '修改時間',
+  `update_by` varchar(45) DEFAULT NULL COMMENT '修改者',
+  `is_use` int DEFAULT NULL COMMENT '是否使用 (0:使用/1:不使用)',
+  PRIMARY KEY (`seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='運費';
+
+
+-- ----------------------------
+-- Table structure for vendor_info
+-- ----------------------------
+CREATE TABLE `vendor_info` (
+  `vendor_id` bigint NOT NULL AUTO_INCREMENT COMMENT '流水號',
+  `vendor_name` varchar(225) DEFAULT NULL COMMENT '廠商名稱',
+  `create_date` datetime DEFAULT NULL COMMENT '建立時間',
+  `credate_by` varchar(45) DEFAULT NULL COMMENT '建立者',
+  `update_date` datetime DEFAULT NULL COMMENT '修改時間',
+  `update_by` varchar(45) DEFAULT NULL COMMENT '修改者',
+  PRIMARY KEY (`vendor_id`),
+  UNIQUE KEY `vendor_name_UNIQUE` (`vendor_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8 COMMENT='廠商資訊';
+
+
+
+-- ----------------------------
+-- Table structure for backend_prod_category
+-- ----------------------------
 CREATE TABLE `backend_prod_category` (
   `category_id` bigint NOT NULL AUTO_INCREMENT COMMENT '流水號',
   `name` varchar(45) NOT NULL COMMENT '類別名稱',
@@ -16,7 +82,9 @@ CREATE TABLE `backend_prod_category` (
   PRIMARY KEY (`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
+-- ----------------------------
+-- Table structure for backend_prod_sub_category
+-- ----------------------------
 CREATE TABLE `eladmin`.`backend_prod_sub_category` (
   `sub_category_id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '流水號',
   `category_id` BIGINT(20) NULL COMMENT '類別流水號',
@@ -37,49 +105,96 @@ CREATE TABLE `eladmin`.`backend_prod_sub_category` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE `eladmin`.`backend_prod` (
-  `prod_id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '流水號',
-  `sub_category_id` BIGINT(20) NULL DEFAULT NULL COMMENT '子類別流水號',
-  `name` VARCHAR(45) NOT NULL COMMENT '商品名稱',
-  `desc` VARCHAR(255) NULL DEFAULT NULL COMMENT '商品描述',
-  `weight` INT NULL DEFAULT NULL COMMENT '商品重量',
-  `can_fly` VARCHAR(2) NULL DEFAULT NULL COMMENT '可空運',
-  `can_sea` VARCHAR(2) NULL DEFAULT NULL COMMENT '可海運',
-  `create_date` DATETIME NOT NULL COMMENT '建立日期',
-  `create_by` VARCHAR(45) NOT NULL COMMENT '建立者',
-  `update_date` DATETIME NULL DEFAULT NULL COMMENT '修改時間',
-  `update_by` VARCHAR(45) NULL DEFAULT NULL COMMENT '修改者',
-  PRIMARY KEY (`prod_id`),
-  INDEX `fk_prod_psc_idx` (`sub_category_id` ASC),
-  CONSTRAINT `fk_prod_psc`
-    FOREIGN KEY (`sub_category_id`)
-    REFERENCES `eladmin`.`backend_prod_sub_category` (`sub_caregory_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+-- ----------------------------
+-- Table structure for backend_prod
+-- ----------------------------
+CREATE TABLE `backend_prod` (
+  `prod_id` bigint NOT NULL AUTO_INCREMENT COMMENT '流水號',
+  `vendor_id` bigint DEFAULT NULL COMMENT '廠商編號',
+  `name` varchar(45) NOT NULL COMMENT '商品名稱',
+  `prod_desc` varchar(255) DEFAULT NULL COMMENT '商品描述',
+  `can_fly` varchar(2) DEFAULT NULL COMMENT '可空運',
+  `can_sea` varchar(2) DEFAULT NULL COMMENT '可海運',
+  `create_date` datetime NOT NULL COMMENT '建立日期',
+  `create_by` varchar(45) NOT NULL COMMENT '建立者',
+  `update_date` datetime DEFAULT NULL COMMENT '修改時間',
+  `update_by` varchar(45) DEFAULT NULL COMMENT '修改者',
+  `delete_flag` varchar(2) DEFAULT NULL,
+  `counrty_id` int DEFAULT NULL COMMENT '國家代號',
+  PRIMARY KEY (`prod_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=460 DEFAULT CHARSET=utf8;
 
-CREATE TABLE `eladmin`.`backend_prod_price_info` (
-  `price_info_id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '流水號',
-  `prod_id` BIGINT(20) NULL DEFAULT NULL COMMENT '商品流水號',
-  `price_local` VARCHAR(45) NOT NULL COMMENT '本地價格',
-  `place_consumption` VARCHAR(255) NULL DEFAULT NULL COMMENT '購買地',
-  `create_date` DATETIME NOT NULL COMMENT '建立日期',
-  `create_by` VARCHAR(45) NOT NULL COMMENT '建立者',
-  `update_date` DATETIME NULL DEFAULT NULL COMMENT '修改時間',
-  `update_by` VARCHAR(45) NULL DEFAULT NULL COMMENT '修改者',
+-- ----------------------------
+-- Table structure for backend_prod_subcategory_prod
+-- ----------------------------
+CREATE TABLE `backend_prod_subcategory_prod` (
+  `seq` bigint NOT NULL AUTO_INCREMENT,
+  `sub_category_id` bigint DEFAULT NULL COMMENT '副類別流水號',
+  `prod_id` bigint DEFAULT NULL COMMENT '商品流水號',
+  PRIMARY KEY (`seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=192 DEFAULT CHARSET=utf8 COMMENT='副類別_商品';
+
+
+-- ----------------------------
+-- Table structure for backend_prod_spec_info
+-- ----------------------------
+CREATE TABLE `backend_prod_spec_info` (
+  `spec_info_id` bigint NOT NULL AUTO_INCREMENT COMMENT '規格序號',
+  `name` varchar(255) DEFAULT NULL COMMENT '規格名稱',
+  `weight` int DEFAULT NULL COMMENT '商品重量',
+  `create_by` varchar(255) DEFAULT NULL COMMENT '建立者',
+  `create_date` datetime DEFAULT NULL COMMENT '建立日期',
+  `update_by` varchar(255) DEFAULT NULL COMMENT '修改者',
+  `update_date` datetime DEFAULT NULL COMMENT '修改時間',
+  `delete_flag` varchar(2) DEFAULT NULL,
+  `prod_id` bigint DEFAULT NULL COMMENT '商品序號',
+  PRIMARY KEY (`spec_info_id`),
+  KEY `fk_prod_spec_id_idx` (`prod_id`),
+  CONSTRAINT `fk_prod_spec_id` FOREIGN KEY (`prod_id`) REFERENCES `backend_prod` (`prod_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=191 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- ----------------------------
+-- Table structure for backend_prod_price_info
+-- ----------------------------
+CREATE TABLE `backend_prod_price_info` (
+  `price_info_id` bigint NOT NULL AUTO_INCREMENT COMMENT '流水號',
+  `spec_info_id` bigint DEFAULT NULL COMMENT '規格流水號',
+  `price_local` varchar(45) NOT NULL COMMENT '本地價格',
+  `place_consumption` varchar(255) DEFAULT NULL COMMENT '購買地',
+  `create_date` datetime NOT NULL COMMENT '建立日期',
+  `create_by` varchar(45) NOT NULL COMMENT '建立者',
+  `update_date` datetime DEFAULT NULL COMMENT '修改時間',
+  `update_by` varchar(45) DEFAULT NULL COMMENT '修改者',
+  `delete_flag` varchar(2) DEFAULT NULL,
   PRIMARY KEY (`price_info_id`),
-  INDEX `fk_ppi_prod_idx` (`prod_id` ASC),
-  CONSTRAINT `fk_ppi_prod`
-    FOREIGN KEY (`prod_id`)
-    REFERENCES `eladmin`.`backend_prod` (`prod_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+  KEY `fk_ppi_spec_idx` (`spec_info_id`),
+  CONSTRAINT `fk_ppi_spec` FOREIGN KEY (`spec_info_id`) REFERENCES `backend_prod_spec_info` (`spec_info_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=191 DEFAULT CHARSET=utf8;
 
+
+-- ----------------------------
+-- Table structure for backend_prod_images
+-- ----------------------------
+CREATE TABLE `backend_prod_images` (
+  `seq` bigint NOT NULL AUTO_INCREMENT,
+  `file_name` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '檔案名稱',
+  `order` bigint DEFAULT NULL COMMENT '順序',
+  `is_main` int DEFAULT NULL COMMENT '是否主要圖片(Y:1/N:0)',
+  `create_by` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '建立者',
+  `create_date` datetime DEFAULT NULL COMMENT '建立日期',
+  `update_by` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '修改者',
+  `update_date` datetime DEFAULT NULL COMMENT '修改時間',
+  `prod_id` bigint DEFAULT NULL COMMENT '商品序號',
+  PRIMARY KEY (`seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+-- ----------------------------
+-- Table structure for backend_prod_unit
+-- ----------------------------
 CREATE TABLE `backend_prod_unit` (
-  `unit_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號',
+  `unit_id` int NOT NULL AUTO_INCREMENT COMMENT '流水號',
   `name` varchar(45) NOT NULL COMMENT '''規格名稱''',
   `create_date` datetime NOT NULL COMMENT '建立日期',
   `create_by` varchar(45) NOT NULL COMMENT '''建立者''',
@@ -87,21 +202,26 @@ CREATE TABLE `backend_prod_unit` (
   `update_by` varchar(45) DEFAULT NULL COMMENT '''修改時間''',
   `delete_flag` varchar(2) DEFAULT NULL,
   PRIMARY KEY (`unit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
+
+-- ----------------------------
+-- Table structure for backend_prod_unit_info
+-- ----------------------------
 CREATE TABLE `backend_prod_unit_info` (
-  `unit_info_id` int(11) NOT NULL AUTO_INCREMENT,
+  `unit_info_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `unit_info_desc` varchar(255) DEFAULT NULL,
   `create_date` datetime NOT NULL,
   `create_by` varchar(45) NOT NULL,
   `update_date` datetime DEFAULT NULL,
   `update_by` varchar(45) DEFAULT NULL,
-  `unit_id` int(11) DEFAULT NULL,
+  `unit_id` int DEFAULT NULL,
   PRIMARY KEY (`unit_info_id`),
   KEY `fk_pu_pui_idx` (`unit_id`),
-  CONSTRAINT `fk_pu_pui` FOREIGN KEY (`unit_id`) REFERENCES `backend_prod_unit` (`unit_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_pu_pui` FOREIGN KEY (`unit_id`) REFERENCES `backend_prod_unit` (`unit_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+
 
 -- ----------------------------
 -- Table structure for log
@@ -273,84 +393,4 @@ INSERT INTO `roles_permissions` VALUES (2, 17);
 INSERT INTO `roles_permissions` VALUES (2, 22);
 INSERT INTO `roles_permissions` VALUES (2, 27);
 INSERT INTO `roles_permissions` VALUES (2, 28);
-
-
--- ----------------------------
--- Records of backend_prod_images
--- ----------------------------
-CREATE TABLE `eladmin`.`backend_prod_images` (
-  `seq` BIGINT NOT NULL AUTO_INCREMENT,
-  `file_name` VARCHAR(255) NULL DEFAULT NULL COMMENT '檔案名稱',
-  `order` BIGINT NULL DEFAULT NULL COMMENT '順序',
-  `is_main` INT NULL DEFAULT NULL COMMENT '是否主要圖片(Y:1/N:0)',
-  `create_by` VARCHAR(255) NULL DEFAULT NULL COMMENT '建立者',
-  `create_date` DATETIME NULL DEFAULT NULL COMMENT '建立日期',
-  `update_by` VARCHAR(255) NULL DEFAULT NULL COMMENT '修改者',
-  `update_date` DATETIME NULL DEFAULT NULL COMMENT '修改時間',
-  `prod_id` BIGINT NULL DEFAULT NULL COMMENT '商品序號',
-  PRIMARY KEY (`seq`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_bin;
-
-
--- ----------------------------
--- Records of backend_prod_spec_info
--- ----------------------------
-CREATE TABLE `eladmin`.`backend_prod_spec_info` (
-  `spec_info_id` BIGINT ZEROFILL NOT NULL COMMENT '規格序號',
-  `name` VARCHAR(255) NULL DEFAULT NULL COMMENT '規格名稱',
-  `unit` VARCHAR(255) NULL DEFAULT NULL COMMENT '單位',
-  `create_by` VARCHAR(255) NULL DEFAULT NULL COMMENT '建立者',
-  `create_date` DATETIME NULL DEFAULT NULL COMMENT '建立日期',
-  `update_by` VARCHAR(255) NULL DEFAULT NULL COMMENT '修改者',
-  `update_date` DATETIME NULL DEFAULT NULL COMMENT '修改時間',
-  `prod_id` BIGINT NULL DEFAULT NULL COMMENT '商品序號',
-  PRIMARY KEY (`spec_info_id`),
-  INDEX `fk_prod_spec_id_idx` (`prod_id` ASC) VISIBLE,
-  CONSTRAINT `fk_prod_spec_id`
-    FOREIGN KEY (`prod_id`)
-    REFERENCES `eladmin`.`backend_prod` (`prod_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-	
-	
-	CREATE 
-    ALGORITHM = UNDEFINED 
-    DEFINER = `root`@`localhost` 
-    SQL SECURITY DEFINER
-VIEW `eladmin`.`backend_prod_view` AS
-    SELECT 
-        UUID() AS `vid`,
-        `bp`.`prod_id` AS `prod_id`,
-        `bpc`.`name` AS `category_name`,
-        `bpsc`.`name` AS `sub_category_name`,
-        `bp`.`name` AS `prod_name`,
-        `bpsi`.`prod_spec` AS `prod_spec`,
-        `bppi`.`prod_price` AS `prod_price`,
-        `bp`.`prod_desc` AS `prod_desc`,
-        `bpsc`.`sub_category_id` AS `sub_category_id`,
-        `bpc`.`category_id` AS `category_id`,
-        `bp`.`weight` AS `weight`,
-        `bp`.`can_fly` AS `can_fly`,
-        `bp`.`can_sea` AS `can_sea`
-    FROM
-        ((((`eladmin`.`backend_prod` `bp`
-        JOIN `eladmin`.`backend_prod_sub_category` `bpsc` ON ((`bpsc`.`sub_category_id` = `bp`.`sub_category_id`)))
-        JOIN `eladmin`.`backend_prod_category` `bpc` ON ((`bpc`.`category_id` = `bpsc`.`category_id`)))
-        LEFT JOIN (SELECT 
-            `eladmin`.`backend_prod_price_info`.`prod_id` AS `prod_id`,
-                CONCAT(`eladmin`.`backend_prod_price_info`.`place_consumption`, '/', MIN(`eladmin`.`backend_prod_price_info`.`price_local`)) AS `prod_price`
-        FROM
-            `eladmin`.`backend_prod_price_info`
-        GROUP BY `eladmin`.`backend_prod_price_info`.`prod_id`) `bppi` ON ((`bppi`.`prod_id` = `bp`.`prod_id`)))
-        LEFT JOIN (SELECT 
-            `bpsi`.`prod_id` AS `prod_id`,
-                GROUP_CONCAT(IFNULL(`bpsi`.`unit`, ''), CONVERT( `bpui`.`name` USING UTF8MB4)
-                    SEPARATOR '/') AS `prod_spec`
-        FROM
-            (`eladmin`.`backend_prod_spec_info` `bpsi`
-        JOIN `eladmin`.`backend_prod_unit_info` `bpui` ON ((`bpui`.`unit_info_id` = `bpsi`.`unit_info_id`)))
-        GROUP BY `bpsi`.`prod_id`) `bpsi` ON ((`bpsi`.`prod_id` = `bp`.`prod_id`)))
-
 

@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-05-07T14:25:05+0800",
-    comments = "version: 1.1.0.Final, compiler: Eclipse JDT (IDE) 3.17.0.v20190306-2240, environment: Java 1.8.0_144 (Oracle Corporation)"
+    date = "2021-01-11T15:58:43+0800",
+    comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_251 (Oracle Corporation)"
 )
 @Component
 public class RoleMapperImpl implements RoleMapper {
@@ -35,18 +35,12 @@ public class RoleMapperImpl implements RoleMapper {
 
         Role role = new Role();
 
-        role.setCreateTime( dto.getCreateTime() );
         role.setId( dto.getId() );
-        Set<Menu> set = menuDTOSetToMenuSet( dto.getMenus() );
-        if ( set != null ) {
-            role.setMenus( set );
-        }
         role.setName( dto.getName() );
-        Set<Permission> set_ = permissionDTOSetToPermissionSet( dto.getPermissions() );
-        if ( set_ != null ) {
-            role.setPermissions( set_ );
-        }
         role.setRemark( dto.getRemark() );
+        role.setPermissions( permissionDTOSetToPermissionSet( dto.getPermissions() ) );
+        role.setMenus( menuDTOSetToMenuSet( dto.getMenus() ) );
+        role.setCreateTime( dto.getCreateTime() );
 
         return role;
     }
@@ -59,18 +53,12 @@ public class RoleMapperImpl implements RoleMapper {
 
         RoleDTO roleDTO = new RoleDTO();
 
-        roleDTO.setCreateTime( entity.getCreateTime() );
         roleDTO.setId( entity.getId() );
-        Set<MenuDTO> set = menuSetToMenuDTOSet( entity.getMenus() );
-        if ( set != null ) {
-            roleDTO.setMenus( set );
-        }
         roleDTO.setName( entity.getName() );
-        Set<PermissionDTO> set_ = permissionSetToPermissionDTOSet( entity.getPermissions() );
-        if ( set_ != null ) {
-            roleDTO.setPermissions( set_ );
-        }
         roleDTO.setRemark( entity.getRemark() );
+        roleDTO.setPermissions( permissionSetToPermissionDTOSet( entity.getPermissions() ) );
+        roleDTO.setMenus( menuSetToMenuDTOSet( entity.getMenus() ) );
+        roleDTO.setCreateTime( entity.getCreateTime() );
 
         return roleDTO;
     }
@@ -81,7 +69,7 @@ public class RoleMapperImpl implements RoleMapper {
             return null;
         }
 
-        List<Role> list = new ArrayList<Role>();
+        List<Role> list = new ArrayList<Role>( dtoList.size() );
         for ( RoleDTO roleDTO : dtoList ) {
             list.add( toEntity( roleDTO ) );
         }
@@ -95,7 +83,7 @@ public class RoleMapperImpl implements RoleMapper {
             return null;
         }
 
-        List<RoleDTO> list = new ArrayList<RoleDTO>();
+        List<RoleDTO> list = new ArrayList<RoleDTO>( entityList.size() );
         for ( Role role : entityList ) {
             list.add( toDto( role ) );
         }
@@ -103,43 +91,30 @@ public class RoleMapperImpl implements RoleMapper {
         return list;
     }
 
-    protected Set<Menu> menuDTOSetToMenuSet(Set<MenuDTO> set) {
-        if ( set == null ) {
-            return null;
-        }
-
-        Set<Menu> set_ = new HashSet<Menu>();
-        for ( MenuDTO menuDTO : set ) {
-            set_.add( menuMapper.toEntity( menuDTO ) );
-        }
-
-        return set_;
-    }
-
     protected Set<Permission> permissionDTOSetToPermissionSet(Set<PermissionDTO> set) {
         if ( set == null ) {
             return null;
         }
 
-        Set<Permission> set_ = new HashSet<Permission>();
+        Set<Permission> set1 = new HashSet<Permission>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
         for ( PermissionDTO permissionDTO : set ) {
-            set_.add( permissionMapper.toEntity( permissionDTO ) );
+            set1.add( permissionMapper.toEntity( permissionDTO ) );
         }
 
-        return set_;
+        return set1;
     }
 
-    protected Set<MenuDTO> menuSetToMenuDTOSet(Set<Menu> set) {
+    protected Set<Menu> menuDTOSetToMenuSet(Set<MenuDTO> set) {
         if ( set == null ) {
             return null;
         }
 
-        Set<MenuDTO> set_ = new HashSet<MenuDTO>();
-        for ( Menu menu : set ) {
-            set_.add( menuMapper.toDto( menu ) );
+        Set<Menu> set1 = new HashSet<Menu>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
+        for ( MenuDTO menuDTO : set ) {
+            set1.add( menuMapper.toEntity( menuDTO ) );
         }
 
-        return set_;
+        return set1;
     }
 
     protected Set<PermissionDTO> permissionSetToPermissionDTOSet(Set<Permission> set) {
@@ -147,11 +122,24 @@ public class RoleMapperImpl implements RoleMapper {
             return null;
         }
 
-        Set<PermissionDTO> set_ = new HashSet<PermissionDTO>();
+        Set<PermissionDTO> set1 = new HashSet<PermissionDTO>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
         for ( Permission permission : set ) {
-            set_.add( permissionMapper.toDto( permission ) );
+            set1.add( permissionMapper.toDto( permission ) );
         }
 
-        return set_;
+        return set1;
+    }
+
+    protected Set<MenuDTO> menuSetToMenuDTOSet(Set<Menu> set) {
+        if ( set == null ) {
+            return null;
+        }
+
+        Set<MenuDTO> set1 = new HashSet<MenuDTO>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
+        for ( Menu menu : set ) {
+            set1.add( menuMapper.toDto( menu ) );
+        }
+
+        return set1;
     }
 }

@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-05-07T14:25:06+0800",
-    comments = "version: 1.1.0.Final, compiler: Eclipse JDT (IDE) 3.17.0.v20190306-2240, environment: Java 1.8.0_144 (Oracle Corporation)"
+    date = "2021-01-11T15:58:43+0800",
+    comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_251 (Oracle Corporation)"
 )
 @Component
 public class UserMapperImpl implements UserMapper {
@@ -31,18 +31,15 @@ public class UserMapperImpl implements UserMapper {
 
         User user = new User();
 
+        user.setId( dto.getId() );
+        user.setUsername( dto.getUsername() );
         user.setAvatar( dto.getAvatar() );
-        user.setCreateTime( dto.getCreateTime() );
         user.setEmail( dto.getEmail() );
         user.setEnabled( dto.getEnabled() );
-        user.setId( dto.getId() );
-        user.setLastPasswordResetTime( dto.getLastPasswordResetTime() );
         user.setPassword( dto.getPassword() );
-        Set<Role> set = roleDTOSetToRoleSet( dto.getRoles() );
-        if ( set != null ) {
-            user.setRoles( set );
-        }
-        user.setUsername( dto.getUsername() );
+        user.setCreateTime( dto.getCreateTime() );
+        user.setLastPasswordResetTime( dto.getLastPasswordResetTime() );
+        user.setRoles( roleDTOSetToRoleSet( dto.getRoles() ) );
 
         return user;
     }
@@ -55,18 +52,15 @@ public class UserMapperImpl implements UserMapper {
 
         UserDTO userDTO = new UserDTO();
 
+        userDTO.setId( entity.getId() );
+        userDTO.setUsername( entity.getUsername() );
         userDTO.setAvatar( entity.getAvatar() );
-        userDTO.setCreateTime( entity.getCreateTime() );
         userDTO.setEmail( entity.getEmail() );
         userDTO.setEnabled( entity.getEnabled() );
-        userDTO.setId( entity.getId() );
-        userDTO.setLastPasswordResetTime( entity.getLastPasswordResetTime() );
         userDTO.setPassword( entity.getPassword() );
-        Set<RoleDTO> set = roleSetToRoleDTOSet( entity.getRoles() );
-        if ( set != null ) {
-            userDTO.setRoles( set );
-        }
-        userDTO.setUsername( entity.getUsername() );
+        userDTO.setCreateTime( entity.getCreateTime() );
+        userDTO.setLastPasswordResetTime( entity.getLastPasswordResetTime() );
+        userDTO.setRoles( roleSetToRoleDTOSet( entity.getRoles() ) );
 
         return userDTO;
     }
@@ -77,7 +71,7 @@ public class UserMapperImpl implements UserMapper {
             return null;
         }
 
-        List<User> list = new ArrayList<User>();
+        List<User> list = new ArrayList<User>( dtoList.size() );
         for ( UserDTO userDTO : dtoList ) {
             list.add( toEntity( userDTO ) );
         }
@@ -91,7 +85,7 @@ public class UserMapperImpl implements UserMapper {
             return null;
         }
 
-        List<UserDTO> list = new ArrayList<UserDTO>();
+        List<UserDTO> list = new ArrayList<UserDTO>( entityList.size() );
         for ( User user : entityList ) {
             list.add( toDto( user ) );
         }
@@ -104,12 +98,12 @@ public class UserMapperImpl implements UserMapper {
             return null;
         }
 
-        Set<Role> set_ = new HashSet<Role>();
+        Set<Role> set1 = new HashSet<Role>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
         for ( RoleDTO roleDTO : set ) {
-            set_.add( roleMapper.toEntity( roleDTO ) );
+            set1.add( roleMapper.toEntity( roleDTO ) );
         }
 
-        return set_;
+        return set1;
     }
 
     protected Set<RoleDTO> roleSetToRoleDTOSet(Set<Role> set) {
@@ -117,11 +111,11 @@ public class UserMapperImpl implements UserMapper {
             return null;
         }
 
-        Set<RoleDTO> set_ = new HashSet<RoleDTO>();
+        Set<RoleDTO> set1 = new HashSet<RoleDTO>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
         for ( Role role : set ) {
-            set_.add( roleMapper.toDto( role ) );
+            set1.add( roleMapper.toDto( role ) );
         }
 
-        return set_;
+        return set1;
     }
 }

@@ -1,17 +1,5 @@
 package com.micb2b.purchasing.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.micb2b.purchasing.domain.Role;
 import com.micb2b.purchasing.dto.RoleDTO;
 import com.micb2b.purchasing.exception.EntityExistException;
@@ -19,6 +7,12 @@ import com.micb2b.purchasing.mapper.RoleMapper;
 import com.micb2b.purchasing.repository.RoleRepository;
 import com.micb2b.purchasing.service.RoleService;
 import com.micb2b.purchasing.utils.ValidationUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 /**
  * @author jie
