@@ -1,6 +1,6 @@
 /.metadata/
 target/
-Server/
+Servers/
 
 ### STS ###
 *.classpath
