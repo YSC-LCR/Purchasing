@@ -1,8 +1,11 @@
 /.metadata/
+target/
+
 ### STS ###
 *.classpath
 *.project
 *.settings
+*.factorypath
 
 ### IntelliJ IDEA ###
 .idea
