@@ -1,1 +1,11 @@
 /.metadata/
+### STS ###
+.classpath
+.project
+.settings
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
