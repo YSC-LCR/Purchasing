@@ -1,7 +1,11 @@
 /.metadata/
-/purchasing/.idea
-/purchasing/setting
-/purchasing/Servers
-/purchasing/.classpath
-/purchasing/.project
-/purchasing/purchasing_parent.iml
+### STS ###
+.classpath
+.project
+.settings
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
