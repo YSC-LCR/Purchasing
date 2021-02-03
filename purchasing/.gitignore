@@ -1,8 +1,8 @@
 /.metadata/
 ### STS ###
-.classpath
-.project
-.settings
+*.classpath
+*.project
+*.settings
 
 ### IntelliJ IDEA ###
 .idea
