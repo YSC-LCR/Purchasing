@@ -18,10 +18,10 @@ public class ShoppeApplication {
 		ConfigurableApplicationContext ctx = SpringApplication.run(ShoppeApplication.class, args);
 
 		log.info("****************************** Shoppe batch job started  ******************************");
-		ProdDataService service = ctx.getBean(ProdDataService.class);
+//		ProdDataService service = ctx.getBean(ProdDataService.class);
 
 		log.info("****************************** save prods ******************************");
-		service.saveProsds();
+//		service.saveProsds();
 
 //		log.info("****************************** calculate orders ******************************");
 //		service.calculateOrders();
