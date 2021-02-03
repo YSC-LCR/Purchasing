@@ -20,11 +20,11 @@ public class ShoppeApplication {
 		log.info("****************************** Shoppe batch job started  ******************************");
 		ProdDataService service = ctx.getBean(ProdDataService.class);
 
-//		log.info("****************************** save prods ******************************");
-//		service.saveProsds();
+		log.info("****************************** save prods ******************************");
+		service.saveProsds();
 
-		log.info("****************************** calculate orders ******************************");
-		service.calculateOrders();
+//		log.info("****************************** calculate orders ******************************");
+//		service.calculateOrders();
 		log.info("****************************** Shoppe batch job finished  ******************************");
 	}
 }
