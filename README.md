@@ -3,15 +3,15 @@
 
 # 專案模組
     Purchasing
-    ├── custmer 						#客戶管理                        
-	├── prod 							#商品管理                        
-	├── stock 							#庫存管理                        
-	├── fixedcost 						#固定成本管理                    
-    ├── collection 						#集貨管理
-    ├── offer							#報價管理
-    ├── checkout						#結帳管理
-    ├── order							#訂單管理
-    └── report							#報表管理                      
+    ├── custmer 					                       
+	├── prod 						                        
+	├── stock 							                        
+	├── fixedcost 						                   
+    ├── collection 						
+    ├── offer							
+    ├── checkout						
+    ├── order							
+    └── report						                      
 
 # 專案架構
     Purchasing
