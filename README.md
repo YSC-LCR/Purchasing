@@ -1,13 +1,16 @@
-# 專案說明
-    Purchasing							#代購
+# 專案目的
+* 專案目標 : 使用系統將重複的工作快速且有效率達成，並且藉由系統建立資料產生所需報表。
+
+# 專案模組
+    Purchasing
     ├── custmer 						#客戶管理                        
 	├── prod 							#商品管理                        
 	├── stock 							#庫存管理                        
 	├── fixedcost 						#固定成本管理                    
     ├── collection 						#集貨管理
     ├── offer							#報價管理
-    ├──	checkout						#結帳管理
-    ├──	order							#訂單管理
+    ├── checkout						#結帳管理
+    ├── order							#訂單管理
     └── report							#報表管理                      
 
 # 專案架構
