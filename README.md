@@ -22,7 +22,7 @@
         ├── backend-common              #後台程式共用元件
         └── shoppe                      #電商訂單處理程式
 
-# api, backend 開發工具
+# backend、shoppe 開發工具
 * JDK：8
 	* <https://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html>
 * Maven 3.6.xx
